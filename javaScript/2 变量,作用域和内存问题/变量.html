@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>变量</title>
+    <script>
+    function addTen(num){
+        num += 10;
+        return num;
+    }
+    let count = 20;
+    let res = addTen(count);
+    alert(res);//30
+    alert(count);//20 count变量不受影响
+    function setName(obj){
+        obj.name = 'gww';
+    }
+    let person = new Object();
+    setName(person);
+    alert(person.name)//person和obj引用的是同一个对象（即使变量是按值传递的，obj也会按引用来访问同一个对象）
+    
+    function setName2(obj){
+        obj.name = 'gww';
+        obj = new Object();
+        obj.name = 'cwx';//重写obj时，这个变量的引用是一个局部变量，会在对象执行完毕后被销毁
+    }
+    let p = new Object();
+    setName2(p);
+    alert(p.name)//gww 证明是按值传递
+
+    function check(){
+        console.log('typeof gww',typeof 'gww');
+        console.log('typeof null',typeof null);
+        console.log('type of Person',typeof new Object());//不能判断是哪种对象
+        let arr = [];
+        let p = new Object()
+        console.log('arr instanceof Object',arr instanceof Object)
+        console.log('arr typeof Array',arr instanceof Array);
+        console.log('p instanceof Object',p instanceof Object)
+        console.log('p typeof Array',p instanceof Array);
+        //instanceof检测基本数据类型 为 false  因为不是对象
+        var fun = function name() {
+        }
+        console.log('typeof function',typeof fun)//function
+    }
+    check()
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
