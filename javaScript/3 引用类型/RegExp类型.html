@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>正则表达式</title>
+    <script>
+    var re= null;
+    var re1 =  null;
+    for(var i = 0;i<10;i++){
+        re = /cat/g;
+       let boo =  re.test("cat11111ctui");
+       console.log(i+1,boo)
+    }
+    for(var j = 0;j<10;j++){
+        re1 = new RegExp('cat','g')
+       let boo =  re1.test("cat11111ctui");
+       console.log(j+1,boo)
+    }
+    var re3 =  /cat/g;
+    let boo3 =  re3.test("cat11111ctui");
+    console.log(boo3);//true
+    let boo4 =  re3.test("cat11111ctui");
+    console.log('下一个位置',re3.lastIndex)
+    console.log(boo4);//false
+    let par = /\[bc\]at/i;
+    console.log(par.global);//false
+    console.log(par.ignoreCase);//true
+    console.log(par.multiline);//false
+    console.log(par.lastIndex);//0
+    console.log(par.source);//\[bc\]at
+    par.test("[bc]atuionno[bc]at")
+    console.log(par.lastIndex)//0
+    console.log('-----------------------')
+    var text = "mom and dad and baby111";
+    var pattern = /mom( and dad( and baby)?)?/gi;
+    var matches = pattern.exec(text)
+    console.log(matches);
+    //["mom and dad and baby", index: 0, input: "mom and dad and baby111", groups: undefined]
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Date类型</title>
+</head>
+<script>
+    console.log(Date.parse("6/23/2019"));//1561219200000
+    console.log(new Date(Date.parse("May 25,2004")))//Tue May 25 2004 00:00:00 GMT+0800 (中国标准时间)
+    console.log(Date.UTC(2019,22,6));
+    console.log(new Date(2004, 4, 25));
+    var start= Date.now();
+    function doSonme(){
+        setTimeout(() => {
+            var stop = Date.now();
+            console.log(stop-start)
+        }, 1000);
+    }
+    doSonme()
+    
+    console.log(new Date().toDateString())//Sun Jun 23 2019 星期几、月、日、年
+    console.log(new Date().toTimeString())
+    console.log(new Date().toLocaleDateString())
+    console.log(new Date().toLocaleTimeString())
+    console.log(new Date().toUTCString())
+</script>
+
+<body>
+
+
+</body>
+
+</html>

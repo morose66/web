@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Array类型</title>
+    <script>
+    let arr = [1,2,3];
+    console.log("arr的长度为",arr.length);
+    arr.length = 2;
+    console.log(arr[2]);
+    arr[2] =4;
+    console.log("arr长度为",arr.length)
+    console.log(arr[2]);
+    //把一个值放在超出当前数组大小的位置上，数组会重新计算其长度。
+    arr[99] = 99;
+    console.log(arr.length)
+
+    //检测数组
+    console.log(Array.isArray(1));
+    //转换方法
+    var colors = ['red','blue','green'];
+    console.log(colors.toString());//'red','blue','green'
+    console.log(colors);//['red','blue','green']
+    console.log(colors.valueOf());//返回数组本身['red','blue','green']
+    alert(colors)//先调toString();
+    let p1 = {
+        toLocaleString:function(){
+            return 'p1.local'
+        },
+        toString:function(){
+            return 'p1.string'
+        }
+    }
+    let p2 = {
+        toLocaleString:function(){
+            return 'p2.local'
+        },
+        toString:function(){
+            return 'p2.string'
+        }
+    }
+
+    let p =[p1,p2];
+    alert(p);//p1.string,p2.string
+    console.log(p.toString())//p1.string,p2.string
+    console.log(p.toLocaleString())//p1.local,p2.local
+   //join方法
+   console.log(arr.join('||'));
+   //栈方法
+   let arrPP = [1,2,3,4];
+   let count = arrPP.push('g','w','w');
+   console.log(count);
+   console.log(arrPP);
+   let item = arrPP.pop();
+   console.log(item);
+   console.log(arrPP);
+   console.log(arrPP.shift());
+
+   console.log(arrPP.unshift('hhh','ppp'))
+   console.log(arrPP);
+
+   //重排序方法
+   var values = [1,2,4,'i','o'];
+   console.log(values.reverse());
+   let sortFun = function(value1,value2){
+    if(value1<value2){
+        return -1
+    }else if(value1>value2){
+        return 1
+    }else{
+        return 0
+    }
+   }
+   values.sort(sortFun);
+   console.log(values)
+
+   //================位置方法
+   var nums = [1,1,2,3,1,88];
+   console.log(nums.indexOf(1));//0
+   console.log(nums.indexOf(1,1));//1
+   console.log(nums.lastIndexOf(1));//4
+   let o1 = {
+       name:'gww'
+   }
+   let o2 = {
+       name:'gww'
+   }
+   let os = [o1];
+   console.log(os.indexOf(o2));//-1
+   console.log(os.indexOf(o1));//0
+   console.log(os.indexOf({
+    name:'gww'
+   }))//-1
+   //归并方法
+   var v = [1,2,3,4,5];
+   //函数参数 前一个值 当前值 项的索引 数组对象 这个函数返回的任何值都会作为第一个参数的索引自动传入下一项
+   //第一次迭代发生在第二项上  
+   var sum = v.reduce(function(pre,cur,index,arr){
+    console.log(pre)
+    console.log(cur);
+    console.log(index)
+    console.log(arr);
+    return pre+cur
+   })
+   console.log(sum)//15
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
