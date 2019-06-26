@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>中央事件总线</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        {{message}}
+        <com-a></com-a>
+        <com-b></com-b>
+    </div>
+</body>
+<script>
+    var bus = new Vue();
+
+    Vue.component('com-a', {
+        template: "<button @click='handleEvent'>发送消息</button>",
+        methods: {
+            handleEvent() {
+                bus.$emit('comA', '来自组件a的消息')
+            }
+        }
+    })
+    Vue.component('com-b', {
+        template: "<div>{{message}}</div>",
+        data: function () {
+            return {
+                message: ''
+            }
+        },
+        mounted() {
+            var _this = this;
+            bus.$on('comA', function (msg) {
+                _this.message = 'comA'+msg
+            })
+        }
+    })
+    var app = new Vue({
+        el: '#app',
+        data: {
+            message: ''
+        },
+        mounted() {
+            var _this = this;
+            bus.$on('comA', function (msg) {
+                _this.message = 'fu'+ msg
+            })
+        }
+    })
+</script>
+
+</html>

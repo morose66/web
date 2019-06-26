@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>refs</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <button @click='changeRefs'>改变子组件refs</button>
+        <com-a ref='comA'></com-a>
+    </div>
+</body>
+<script>
+    var bus = new Vue();
+
+    Vue.component('com-a', {
+        template: "<div>{{message}}</div>",
+        data: function () {
+            return {
+                message: '子组件'
+            }
+        }
+    })
+    var app = new Vue({
+        el: '#app',
+        data: {
+        },
+        methods: {
+            changeRefs() {
+                alert(this.$refs.comA.message)
+                this.$refs.comA.message = '父组件'
+            }
+        }
+    })
+</script>
+
+</html>

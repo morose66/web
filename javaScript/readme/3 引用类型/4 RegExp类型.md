@@ -67,3 +67,5 @@ var exp1 = new RegExp("[bc]at",'i')
    * leftContext：input字符串中lastMatch之前的文本
    * multiline：是否所有表达式都使用多行模式
    * rightContext：input字符串中lastMatch之后的文本
+
+   * 还有多达9个用于存储捕获组的构造函数属性 RegExp.$1... RegExp.$9

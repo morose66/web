@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数组更新检测</title>
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="item in items" :key="item">
+                {{item}}
+            </li>
+        </ul>
+        <ul>
+            <li v-for="item in filterBooks" :key="item.name">
+                {{item.name}}
+            </li>
+        </ul>
+        <ul>
+            <li v-for="item in sortBooks" :key="item.name">
+                {{item.name}}
+            </li>
+        </ul>
+
+    </div>
+</body>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            items: ['a', 'b', 'c'],
+            books: [{
+                name: 'js'
+            }, {
+                name: 'node'
+            }, {
+                name: 'vue'
+            }]
+        },
+        computed: {
+            filterBooks() {
+                return this.books.filter((book) => {
+                    return book.name.match(/js/);
+                })
+            },
+            sortBooks(){
+                return this.books.sort((book1,book2)=>{
+                    return book2.name.length - book1.name.length
+                })
+            }
+        },
+    })
+    console.log(vm.items);
+</script>
+
+</html>
