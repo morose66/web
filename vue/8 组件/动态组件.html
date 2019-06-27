@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>slot</title>
+</head>
+<body>
+    <div id="app">
+        <button @click='com = "comB"'>切换成B</button>
+        <component :is="com"></component>
+    </div>
+    
+</body>
+<script>
+    new Vue({
+        el:"#app",
+        data() {
+            return {
+                com:'comA'
+            }
+        },
+        components:{
+            comA:{
+                template:'<div>组件A</div>'
+            },
+            comB:{
+                template:'<div>组件B</div>'
+            }
+        }
+    })
+</script>
+</html>

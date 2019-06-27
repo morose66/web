@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>非Prop的特性</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <blog-post type='text' class="date-picker-theme-dark"></blog-post>
+    </div>
+</body>
+<script>
+    Vue.component('blog-post', {
+        inheritAttrs:false,//不让组件的根元素继承特性 
+        //注意 inheritAttrs: false 选项不会影响 style 和 class 的绑定。
+        template: '<input type="date" class="form-control">',
+        mounted() {
+            //$attrs手动决定这些特性会被赋予哪个元素
+            console.log(this.$attrs)
+        },
+    })
+    new Vue({
+        el: '#app',
+        data: {
+            title: 'vue',
+            obj: {
+                age: 18,
+                name: 'gww'
+            }
+        }
+    })
+</script>
+
+</html>
