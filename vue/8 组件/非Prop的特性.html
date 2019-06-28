@@ -11,14 +11,14 @@
 
 <body>
     <div id="app">
-        <blog-post type='text' class="date-picker-theme-dark"></blog-post>
+        <blog-post type='text' class="date-picker-theme-dark" msg='fu'></blog-post>
     </div>
 </body>
 <script>
     Vue.component('blog-post', {
         inheritAttrs:false,//不让组件的根元素继承特性 
         //注意 inheritAttrs: false 选项不会影响 style 和 class 的绑定。
-        template: '<input type="date" class="form-control">',
+        template: '<input type="$attrs.type" class="form-control">',
         mounted() {
             //$attrs手动决定这些特性会被赋予哪个元素
             console.log(this.$attrs)

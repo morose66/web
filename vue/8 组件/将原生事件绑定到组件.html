@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>将原生事件绑定到组件</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="change('red')">变红</button>
+        <Btn @click.native="change('blue')"></Btn>
+        <div :class='box' class="show"></div>
+        <base-input @change="onChange" @up=""></base-input>
+    </div>
+</body>
+<script>
+    Vue.component('Btn', {
+        template: '<div><button>变蓝</button></div>',
+        mounted() {
+
+        },
+    })
+    // Vue 提供了一个 $listeners 属性，它是一个对象，里面包含了作用在这个组件上的所有监听器。例如：
+
+    // {
+    //   focus: function (event) { /* ... */ }
+    //   input: function (value) { /* ... */ },
+    // }
+    Vue.component('base-input', {
+        inheritAttrs: false,
+        computed: {
+            inputListeners: function () {
+                var vm = this;
+                // $listeners获取父组件传递进来的所有事件函数
+                console.log(vm.$listeners)
+                // `Object.assign` 将所有的对象合并为一个新对象
+                return Object.assign({},
+                    // 我们从父级添加所有的监听器
+                    vm.$listeners,
+                    // 然后我们添加自定义监听器，
+                    // 或覆写一些监听器的行为
+                    {
+                        input: function (event) {
+                            vm.$emit('input', event.target.value)
+                        },
+                        change: function (event) {
+                            vm.$emit('change', event.target.value)
+                        },
+                    }
+                )
+            }
+        },
+        template: `<label><input v-on="inputListeners"></label>`
+    })
+    new Vue({
+        el: '#app',
+        data: {
+            box: ''
+        },
+        methods: {
+            change(color) {
+                this.box = color
+            },
+            onChange(val) {
+                alert('onChange' + val)
+            }
+        },
+    })
+
+</script>
+<style lang="scss">
+    #app>.show {
+        width: 100px;
+        height: 100px;
+        background: palegoldenrod
+    }
+
+    .red {
+        background: red !important
+    }
+
+    .blue {
+        background: blue !important
+    }
+</style>
+
+</html>

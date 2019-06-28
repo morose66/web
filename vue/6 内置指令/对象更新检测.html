@@ -29,6 +29,7 @@
         },
         mounted() {
             this.$set(this.items,'name','gww');
+             // `Object.assign` 将所有的对象合并为一个新对象
             this.items = Object.assign({},this.items,{
                 age:20,
                 fav:'hhh'

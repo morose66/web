@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>sync</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        {{title}}
+        <base-input :title="title" v-on:update:title="title = $event"></base-input>
+        <base-input v-bind:title.sync="title"></base-input>
+
+    </div>
+</body>
+<script>
+    Vue.component('base-input', {
+        template: `
+    <div> 
+      <button @click='setNewTitle'>更新标题</button>
+    </div>
+  `,
+        methods: {
+            setNewTitle() {
+                this.$emit('update:title', '更新后')
+            }
+        },
+    })
+    new Vue({
+        el: '#app',
+        data: {
+            title: 'sync'
+        }
+    })
+
+</script>
+
+</html>

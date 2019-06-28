@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,20 +8,38 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <title>slot</title>
 </head>
+
 <body>
     <div id="app">
         <com-a>
             父组件的值
         </com-a>
+        <current-user>
+            <template v-slot="slotProps">
+                {{ slotProps.user.firstName }}
+            </template>
+        </current-user>
     </div>
-    
+
 </body>
 <script>
-    Vue.Component('com-a',{
-        template:'<div><slot></slot></div>'
+    Vue.component('com-a', {
+        template: '<div><slot></slot></div>'
+    })
+    Vue.component('current-user', {
+        template: '<div><span><slot v-bind:user="user">{{ user.lastName }}</slot></span></div>',
+        data() {
+            return {
+                user: {
+                    firstName:'顾大霸',
+                    lastName: '顾小怼'
+                }
+            }
+        },
     })
     new Vue({
-        el:"#app",
+        el: "#app",
     })
 </script>
+
 </html>
