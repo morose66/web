@@ -13,12 +13,18 @@
         <transition name="fade">
             <p v-if="show">hello</p>
         </transition>
+        <transition>
+            <button v-bind:key="isEditing">
+              {{ isEditing ? 'Save' : 'Edit' }}
+            </button>
+          </transition>
     </div>
     <script>
     new Vue({
         el:"#app",
         data:{
-            show:true
+            show:true,
+            isEditing:'Save'
         }
     })
     </script>
