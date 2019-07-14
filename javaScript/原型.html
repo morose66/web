@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>原型</title>
+    <script>
+        function Person(name) {
+            this.name = name;
+            this.sayName = function () {
+                console.log('say', this.name)
+            }
+        }
+        let p = new Person('gww');
+        console.log(p);
+        p.sayName();
+        console.log(p.__proto__);
+        console.log(Object.getPrototypeOf(p))
+        console.log(Array.prototype);
+        function SpecialArray() {
+            console.log('uuuu',this)
+            var values = new Array();
+            values.push.apply(values, arguments);
+
+            values.toPipedString = function () {
+                console.log('this--',this)
+                return this.join('|')
+            }
+            return values;
+        }
+        var colors = new SpecialArray('red','blue','green');
+        console.log(colors.toPipedString())
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
