@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>html5新标签</title>
+    <script>
+    window.onload= function(){
+        a = parseInt(prompt('请输入第一个数字',0))
+        b = parseInt(prompt('请输入第二个数字',0));
+        document.getElementsByName('result')[0].value = a*b
+    }
+    </script>
+</head>
+
+<body>
+    <input type="text" value="输入名称" list="star">
+    <datalist id="star">
+        <option value="刘德华" label="明星">刘德华</option>
+        <option>马德华</option>
+        <option>刘若英</option>
+        <option>顾小怼</option>
+    </datalist>
+    <fieldset>
+        <legend>用户登录</legend>
+        <p><label>用户名：
+        <input type="text"></label></p>
+        <p>密码：
+        <input type="password"></p>
+    </fieldset>
+    <!--input-->
+    <fieldset>
+        <legend>html5新增input</legend>
+        <form action="#" method="GET">
+            <p>邮箱:<input type="email" name="email" placeholder="请输入邮箱" autofocus></p>
+            <p>手机：<input type="tel" name="tel" required></p>
+            <p>数字：<input type="number" name="number" accesskey="g"></p>
+            <p>网址：<input type="url" name="url"></p>
+            <p>搜索：<input type="search" name="search"></p>
+            <p>区域：<input type="range" name="range"></p>
+            <p>时间：<input type="time" name="time"></p>
+            <p>日期：<input type="date" name="date"></p>
+            <p>本地日期：<input type="datetime-local" name="date"></p>
+            <p>月年:<input type="month" name="month"></p>
+            <p>颜色：<input type="color" name="color"></p>
+            <p>上传<input type="file" name="file" multiple></p>
+            <p>自动完成:<input type="text" name="auto" autocomplete="off"></p>
+            <p>正则表达式:<input type="text" name="reg" pattern="[0-9]{6}" title="请输入六位邮政编码"></p>
+            <P>密码加密强度:<keygen  name='security'/></P>
+            <p>乘积为:<output name="result"></output></p>
+            <p><input type="submit" value="提交"></p>
+        </form>
+    </fieldset>
+
+</body>
+
+</html>

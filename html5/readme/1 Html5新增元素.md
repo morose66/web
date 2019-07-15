@@ -27,7 +27,7 @@
             <img src="img/2.jpg" width="400">
             <figcaption>动物</figcaption>//只能出现一次
         </figure>
-     ```
+  ```
 * details和summary 详细内容,当detail元素展开或收缩，均触发toggle事件
 ```
         <details>
@@ -49,7 +49,7 @@
    * value 规定已经完成多少任务
    ```
        <progress max="100" value="20"></progress>
-    ```
+   ```
 * meter 度量，已知范围或分数内的标量测量。例如，磁盘用量，查询结果的相关性，有七个属性：
    * form:规定\<meter>所属的一个或多个表单
    * high:规定被视作高的值的范围
@@ -61,7 +61,7 @@
    ```
     <meter value="3" min='0' max="10" high="2" optimum="8"></meter>
     <meter value="0.6"></meter>
-    ```
+   ```
 * dialog 模态对话框
 ```
     <dialog id="dialog">
@@ -98,7 +98,7 @@
 * command??
 ## 完善旧元素
 * a--超链接
-   * download:设置被下载的超链接目标????
+   * download:设置被下载的超链接目标https://blog.csdn.net/u014465934/article/details/89212304
    * media：设置被链接文档是被何种媒介/设备优化的
    * type：设置被链接文档的MIME类型
 * ol--有序列表 新增了reversed属性,用来设置列表顺序为降序显示
@@ -121,3 +121,35 @@
     </dl>
 ```
 * cite--引用文本。一般引用文本包裹在a标签中,方便用户快速跳转到原出处
+* small--用来标识小字印刷体
+* iframe--内联框架，在当前html页面嵌入另一个页面
+* script--脚本  新增async属性，仅适用于外部脚本 
+
+## 新增全局属性--可以用于任何html元素的属性
+* contentEditable--可编辑内容
+* contextmenu--快捷菜单 右击元素时出现
+* data--自定义属性   js通过.dataset获取
+```
+    <ul>
+        <li data-animal-type="bird">猫头鹰</li>
+        <li data-animal-type="fish">鲤鱼</li>
+    </ul>
+            window.onload = function () {
+            let lis = document.getElementsByTagName('li');
+            for (let i = 0; i < lis.length; i++) {
+                console.log('type', lis[i].dataset.animalType)
+            }
+        }
+```
+* draggable--可拖动
+* hidden--隐藏
+```
+<h1 hidden>gww</h1>
+```
+* spellcheck--语法检查
+```
+    <textarea spellcheck="true">
+        good
+    </textarea>
+    <input spellcheck="true" value="gww">
+```

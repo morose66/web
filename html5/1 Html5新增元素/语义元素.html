@@ -14,7 +14,12 @@
             var summary = document.getElementsByTagName('summary')[0];
 
             detail.ontoggle = function () {
-                console.log('this');
+                // for(let key in this){
+                //     console.log(key,this[key])
+                // }
+                console.log('this',this);
+                console.log('this.open',this.open);
+                console.log('summary',summary)
                 if (this.open) {
                     info.style.border = '2px solid pink';
                     summary.style.outline = "none"
@@ -22,7 +27,7 @@
                     info.style.border = '1px solid #666'
                 }
             }
-            //---------------------------------------
+            //---------------------------------------弹框
             var openbtn = document.getElementById('openbtn');
             var dialog = document.getElementById('dialog');
             var cls = document.getElementById('cls');
@@ -119,8 +124,11 @@
     <menu>
         <command id="command">命令</command>
     </menu>
-    <command id="command1">命令</command>
-    <a href="img/1.jpg" download="img/1.jpg"><img src="img/1.jpg"></a>
+    <!-- <command id="command1">命令</command> -->
+    <!-- <menu>
+        <command onclick="alert('男士')" type="radio" radiogroup="group1" label="男士">男士</command>
+    </menu> -->
+    <a href="img/2.jpg" download="img/2.jpg"><img src="img/2.jpg"></a>
     <ol reversed>
         <li>1</li>
         <li>2</li>
@@ -137,6 +145,8 @@
     <p>
         <a href="http://wwww.baidu.com"><cite>宋词</cite></a>
     </p>
+    <small>小字印刷体</small>
+
     
 </body>
 

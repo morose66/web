@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>全局属性</title>
+    <script>
+        window.onload = function () {
+            let lis = document.getElementsByTagName('li');
+            for (let i = 0; i < lis.length; i++) {
+                console.log('type', lis[i].dataset.animalType)
+            }
+        }
+
+    </script>
+</head>
+
+<body>
+    <div contenteditable="true">
+        <p>旧有全局属性：id style class title accesskey tabindex lang dir</p>
+        <p>新增全局属性 contenteditable contextmenu data-* draggable dropzone hidden spellcheck translate</p>
+    </div>
+    <ul>
+        <li data-animal-type="bird">猫头鹰</li>
+        <li data-animal-type="fish">鲤鱼</li>
+    </ul>
+    <h1 hidden>gww</h1>
+    <textarea spellcheck="true">
+        good
+    </textarea>
+    <input spellcheck="true" value="gww">
+</body>
+
+</html>
