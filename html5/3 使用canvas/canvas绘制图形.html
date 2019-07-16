@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>canvas</title>
+    <script>
+        window.onload = function () {
+            /** @type {HTMLCanvasElement} */
+            var c = document.getElementById('myCanvas');
+            var context = c.getContext('2d');
+            //矩形----------------
+            context.fillStyle = 'yellow';
+            context.fillRect(350,350,100,100);
+            context.strokeRect(350,350,100,100)
+            context.clearRect(360,360,80,80);
+            //填充三角形-----------------
+            context.beginPath();
+            context.moveTo(75, 50);
+            context.lineTo(100, 25)
+            context.lineTo(100, 75);
+            context.fill();
+            //描边三角形
+            context.beginPath();
+            context.moveTo(200,200);
+            context.lineTo(250,200);
+            context.lineTo(250,250);
+            context.closePath();
+            context.stroke();
+            //笑脸---------------------
+            context.beginPath();
+            context.arc(75,75,50,0,2*Math.PI,true);
+           // context.moveTo(110,75);
+            context.arc(75,75,35,0,Math.PI,false);//嘴巴
+            context.moveTo(65,65);
+            context.arc(60,65,5,0,Math.PI*2,true)
+            context.moveTo(95,65)
+            context.arc(90,65,5,0,Math.PI*2,true)
+            context.stroke()
+            //圆
+            for(let i = 0;i<4;i++){
+                let y = 450+i*50;//y坐标
+                for(let j = 0;j<3;j++){
+                    let x = 450+j*50;//x坐标
+                    context.beginPath();
+                    let radius = 20;
+                    let startAngle = 0;
+                    let endAngle = Math.PI+Math.PI*j/2;
+                    let wise = i%2==0?false:true;
+                    context.arc(x,y,radius,startAngle,endAngle,wise);
+                    if(i>1){
+                        context.fill()
+                    }else{
+                        context.stroke();
+                    }
+                }
+            }
+            //曲线
+            context.beginPath();
+            context.moveTo(500,20);
+            context.lineTo(580,20);
+            context.arcTo(630,20,630,70,50)
+            context.stroke();
+            //二次方曲线
+            context.moveTo(500,500);
+            context.quadraticCurveTo(600,600,800,600)
+            context.stroke();
+            //三次方曲线
+        }
+    </script>
+</head>
+
+<body>
+    <canvas id="myCanvas" width="800" height="800" style="border: 1px solid #666666"></canvas>
+</body>
+
+</html>
