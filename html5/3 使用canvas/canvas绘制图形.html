@@ -16,6 +16,8 @@
             context.fillRect(350,350,100,100);
             context.strokeRect(350,350,100,100)
             context.clearRect(360,360,80,80);
+            // context.fillStyle = 'red';
+            // context.fillRect(450,550,100,100);
             //填充三角形-----------------
             context.beginPath();
             context.moveTo(75, 50);
@@ -32,7 +34,7 @@
             //笑脸---------------------
             context.beginPath();
             context.arc(75,75,50,0,2*Math.PI,true);
-           // context.moveTo(110,75);
+            context.moveTo(110,75);
             context.arc(75,75,35,0,Math.PI,false);//嘴巴
             context.moveTo(65,65);
             context.arc(60,65,5,0,Math.PI*2,true)

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>canvas</title>
+    <script>
+        window.onload = function () {
+            //通过注释中的 @type 指令，我们就可以告诉VSCode，canvas 变量就是个 HTMLCanvasElement 类型的 DOM 节点。这样自动补全就又“复活”了。
+            /** @type {HTMLCanvasElement} */
+            var canvas = document.getElementById('myCanvas');
+            var context = canvas.getContext('2d');
+            /******************保存和恢复状态************************/
+            //开始绘制图形
+            context.fillStyle = '#ff00ff';
+            context.strokeStyle = 'blue';
+            context.fillRect(20, 20, 100, 100);
+            context.strokeRect(20, 20, 100, 100);
+            context.fill();
+            context.stroke();
+            //保存当前canvas状态
+            context.save();
+            //绘制另外一个矩形
+            context.fillStyle = '#ff0000';
+            context.strokeStyle = 'green';
+            context.fillRect(140, 20, 100, 100);
+            context.strokeRect(140, 20, 100, 100);
+            context.fill();
+            context.stroke();
+            //恢复第一个矩形的状态
+            context.restore();
+            //绘制两个矩形
+            context.fillRect(20, 140, 50, 50)
+            context.strokeRect(20, 140, 50, 50)
+            /******************移动坐标************************/
+            context.translate(30,300);
+            for(let i = 0;i<10;i++){
+                context.save()//以(30,300)为起点
+                context.translate(60*i,0)
+                drawTop(context,'rgb('+(30*i)+','+(255-30*i)+',255)') ;
+                drawGrip(context);
+                context.restore()
+            }
+             /******************旋转坐标************************/
+             context.translate(300,300);
+             for(let i = 0;i<10;i++){
+                context.save()//以(300,300)为起点
+                //context.translate(60*i,0)
+                context.rotate(Math.PI*(0.5+i/4))
+                drawTop(context,'rgb('+(30*i)+','+(255-30*i)+',255)') ;
+                drawGrip(context);
+                context.restore()
+            }
+
+        }
+        //绘制顶部半圆
+        function drawTop(ctx,fillStyle){
+            ctx.fillStyle = fillStyle;
+            ctx.beginPath();
+            ctx.arc(0,0,30,0,Math.PI,true);
+            ctx.fill();
+        }
+        //绘制雨伞底部手柄
+        function drawGrip(ctx){
+           // ctx.save();
+            ctx.fillStyle='blue';
+            ctx.fillRect(0,0,2,40);
+            ctx.beginPath();
+            ctx.strokeStyle='blue';
+            ctx.lineWidth = 2
+            ctx.arc(-3,40,4,0,Math.PI,false);
+            ctx.stroke();
+            ctx.closePath()
+            
+
+        }
+
+    </script>
+</head>
+
+<body>
+    <canvas id="myCanvas" width="1600" height="850" style="border: 1px solid #666666"></canvas>
+</body>
+
+</html>

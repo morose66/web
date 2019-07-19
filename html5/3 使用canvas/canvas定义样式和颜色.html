@@ -8,16 +8,184 @@
     <title>canvas</title>
     <script>
         window.onload = function () {
+            //通过注释中的 @type 指令，我们就可以告诉VSCode，canvas 变量就是个 HTMLCanvasElement 类型的 DOM 节点。这样自动补全就又“复活”了。
             /** @type {HTMLCanvasElement} */
-            var c = document.getElementById('myCanvas');
-            var context = c.getContext('2d');
-            
+            /******************填充色************************/
+            var canvas = document.getElementById('myCanvas');
+            var context = canvas.getContext('2d');
+            for (let i = 0; i < 6; i++) {
+                let y = 50 * i;
+                for (let j = 0; j < 6; j++) {
+                    let x = 50 * j;
+                    context.fillStyle = 'rgb(' + Math.floor(255 - 42.5 * i) + ',' + Math.floor(255 - 42.5 * j) + ',0)'
+                    context.fillRect(x, y, 50, 50);
+                }
+            }
+            for (let i = 0; i < 6; i++) {
+                let y = 325 + 50 * i;
+                for (let j = 0; j < 6; j++) {
+                    let x = 25 + 50 * j;
+                    context.beginPath();
+                    context.strokeStyle = 'rgb(' + Math.floor(255 - 42.5 * i) + ',' + Math.floor(255 - 42.5 * j) + ',0)'
+                    context.arc(x, y, 25, 0, Math.PI * 2, true);
+                    context.stroke();
+                }
+            }
+            /******************不透明度************************/
+            context.fillStyle = '#fd0';
+            context.fillRect(400, 0, 75, 75);
+            context.fillStyle = '#06c';
+            context.fillRect(475, 0, 75, 75);
+            context.fillStyle = '#09f';
+            context.fillRect(400, 75, 75, 75);
+            context.fillStyle = '#f30';
+            context.fillRect(475, 75, 75, 75);
+            //设置透明度
+            context.globalAlpha = 0.2
+            context.fillStyle = '#fff'
+            //画半透明半圆
+            for (let i = 0; i < 7; i++) {
+                context.beginPath();
+                context.arc(475, 75, 10 + 10 * i, 0, Math.PI * 2, true);
+                context.fill();
+            }
+            /******************实线************************/
+            for (let i = 0; i < 12; i++) {
+                let x = 400, y = 200;
+                context.beginPath();
+                context.moveTo(x, y + 20 * i);
+                context.lineWidth = 1 + i
+                context.lineTo(x + 140, y + 20 * i);
+                context.stroke();
+
+            }
+            /******************端点样式************************/
+            let lineCap = ['butt', 'round', 'square'];
+            for (let i = 0; i < 3; i++) {
+                let x = 400, y = 500;
+                context.beginPath();
+                context.moveTo(x, y + 20 * i);
+                context.lineWidth = 10;
+                context.strokeStyle = 'red'
+                context.lineCap = lineCap[i];
+                context.lineTo(x + 140, y + 20 * i);
+                context.stroke()
+            }
+            /******************连接样式************************/
+            let lineJoin = ['miter', 'round', 'bevel'];
+            context.beginPath();
+            context.moveTo(400, 600);
+            context.lineWidth = 25;
+            context.lineJoin = lineJoin[2];
+            context.lineTo(500, 600);
+            context.lineTo(500, 700);
+            context.stroke()
+            context.beginPath();
+            context.moveTo(475, 700);
+            context.lineJoin = lineJoin[1];
+            context.lineTo(400, 700)
+            context.lineTo(400, 800)
+            context.stroke()
+            /******************交点方式************************/
+            for (let i = 0; i < 10; i++) {
+                context.strokeStyle = 'blue';
+                context.lineWidth = 10;
+                context.lineJoin = 'miter';
+                context.miterLimit = 10 * i;
+                context.beginPath();
+                context.moveTo(600, 10 + 30 * i);
+                context.lineTo(700, 10 + 30 * i);
+                context.lineTo(600, 10 + 33 * i)
+                context.stroke();
+            }
+            /******************虚线************************/
+            var offset = 0;
+            function draw() {
+                context.clearRect(599, 499, 202, 102);
+                context.lineWidth = 1;
+                context.setLineDash([4, 4]);//长度 间隔
+                context.lineDashOffset = -offset;
+                context.strokeStyle = 'blue';
+                context.globalAlpha = 1
+                context.strokeRect(600, 500, 200, 100);
+            }
+            function match() {
+                offset++;
+                if (offset > 16) {
+                    offset = 0
+                }
+                draw();
+            }
+            setInterval(match, 100);
+            /******************偏移量************************/
+            context.beginPath();
+            context.moveTo(800, 20);
+            context.lineTo(900, 20);
+            context.setLineDash([4, 4]);
+            context.lineWidth = 1;
+            context.stroke()
+            context.beginPath();
+            context.setLineDash([4, 4]);
+            context.lineDashOffset = -2;
+            context.moveTo(800, 25);
+            context.lineTo(900, 25);
+            context.lineWidth = 1;
+            context.stroke();
+            /******************线性渐变************************/
+            context.beginPath();
+            context.globalAlpha = 1
+            let lingrad = context.createLinearGradient(800, 100, 800, 300);
+            lingrad.addColorStop(0, '#ff0000');
+            lingrad.addColorStop(1 / 7, '#ff9900')
+            lingrad.addColorStop(2 / 7, '#ffff00')
+            lingrad.addColorStop(3 / 7, '#00ff00')
+            lingrad.addColorStop(4 / 7, '#00ffff')
+            lingrad.addColorStop(5 / 7, '#0000ff')
+            lingrad.addColorStop(6 / 7, '#ff00ff')
+            lingrad.addColorStop(1, '#ff0000')
+            context.fillStyle = lingrad;
+            context.strokeStyle = lingrad
+            context.fillRect(800, 100, 300, 200);
+            /******************径向渐变************************/
+            context.beginPath();
+            let radgrad = context.createRadialGradient(950, 450, 0, 950, 450, 150);
+            radgrad.addColorStop(0, '#a7d30c');
+            radgrad.addColorStop(0.9, '#019f62');
+            radgrad.addColorStop(1, 'rgba(1,159,98,0)')
+            context.globalAlpha = 1;
+            context.arc(950, 450, 150, 0, Math.PI * 2, true);
+            context.fillStyle = radgrad
+            context.fill();
+            /******************图案************************/
+            var img = new Image();
+            img.src = 'img/head.png';
+            img.onload = function () {
+                let ptrn = context.createPattern(img, 'repeat');
+                context.beginPath();
+                context.fillStyle = ptrn;
+                context.fillRect(950, 600, 300, 200);
+            }
+            /******************阴影************************/
+            context.shadowOffsetX = 10;
+            context.shadowOffsetY10;
+            context.shadowBlur = 4;
+            context.shadowColor = 'rgba(0,0,0,0.5)';
+            //绘制文本
+            context.font = '60px Times New Roman';
+            context.fillStyle = 'yellow';
+            context.fillText('顾大霸', 1200, 80)
+            /******************填充规则************************/
+            context.beginPath();
+            context.arc(1200, 200, 20, 0, Math.PI * 2, true);
+            context.arc(1200, 200, 10, 0, Math.PI * 2, true);
+            context.fill('evenodd')
         }
+
     </script>
 </head>
 
 <body>
-    <canvas id="myCanvas" width="800" height="800" style="border: 1px solid #666666"></canvas>
+    <canvas id="myCanvas" width="1600" height="850" style="border: 1px solid #666666"></canvas>
 </body>
 
 </html>
