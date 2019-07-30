@@ -18,8 +18,8 @@
             context.strokeStyle = 'blue';
             context.fillRect(20, 20, 100, 100);
             context.strokeRect(20, 20, 100, 100);
-            context.fill();
-            context.stroke();
+            // context.fill();
+            // context.stroke();
             //保存当前canvas状态
             context.save();
             //绘制另外一个矩形
@@ -35,45 +35,72 @@
             context.fillRect(20, 140, 50, 50)
             context.strokeRect(20, 140, 50, 50)
             /******************移动坐标************************/
-            context.translate(30,300);
-            for(let i = 0;i<10;i++){
+            context.translate(30, 300);
+            for (let i = 0; i < 10; i++) {
                 context.save()//以(30,300)为起点
-                context.translate(60*i,0)
-                drawTop(context,'rgb('+(30*i)+','+(255-30*i)+',255)') ;
+                context.translate(60 * i, 0)
+                drawTop(context, 'rgb(' + (30 * i) + ',' + (255 - 30 * i) + ',255)');
                 drawGrip(context);
                 context.restore()
             }
-             /******************旋转坐标************************/
-             context.translate(300,300);
-             for(let i = 0;i<10;i++){
+            /******************旋转坐标************************/
+            context.translate(300, 300);
+            for (let i = 0; i < 10; i++) {
                 context.save()//以(300,300)为起点
-                //context.translate(60*i,0)
-                context.rotate(Math.PI*(0.5+i/4))
-                drawTop(context,'rgb('+(30*i)+','+(255-30*i)+',255)') ;
+                context.rotate(Math.PI * (0.5 + i / 4));
+                context.translate(0, -100)
+                drawTop(context, 'rgb(' + (30 * i) + ',' + (255 - 30 * i) + ',255)');
                 drawGrip(context);
-                context.restore()
+                context.restore();
+            }
+            /*********************缩放图形***************************/
+            context.translate(500, -250);
+            for (let i = 1; i < 80; i++) {
+                context.translate(30, 30);
+                context.scale(0.95, 0.95)
+                context.rotate(Math.PI / 12)
+                context.beginPath();
+                context.fillStyle = 'red';
+                context.globalAlpha = 0.4;
+                context.arc(0, 0, 50, 0, Math.PI * 2, true);
+                context.fill();
+            }
+            /*******************变换图形*********************/
+           // context.translate(300,0);
+           context.setTransform(1,0,0,1,800,100)//将矩阵重置为最初矩阵
+            context.stroke();
+            for (let i = 1; i < 80; i++) {
+                // context.translate(30, 30);
+                // context.scale(0.95, 0.95)
+               context.transform(0.95,0.1,0.1,0.95,30,30);
+                context.rotate(Math.PI / 12)
+                context.beginPath();
+                context.fillStyle = 'blue';
+                context.globalAlpha = 0.4;
+                context.arc(0, 0, 50, 0, Math.PI * 2, true);
+                context.fill();
             }
 
         }
         //绘制顶部半圆
-        function drawTop(ctx,fillStyle){
+        function drawTop(ctx, fillStyle) {
             ctx.fillStyle = fillStyle;
             ctx.beginPath();
-            ctx.arc(0,0,30,0,Math.PI,true);
+            ctx.arc(0, 0, 30, 0, Math.PI, true);
             ctx.fill();
         }
         //绘制雨伞底部手柄
-        function drawGrip(ctx){
-           // ctx.save();
-            ctx.fillStyle='blue';
-            ctx.fillRect(0,0,2,40);
+        function drawGrip(ctx) {
+            // ctx.save();
+            ctx.fillStyle = 'blue';
+            ctx.fillRect(0, 0, 2, 40);
             ctx.beginPath();
-            ctx.strokeStyle='blue';
+            ctx.strokeStyle = 'blue';
             ctx.lineWidth = 2
-            ctx.arc(-3,40,4,0,Math.PI,false);
+            ctx.arc(-3, 40, 4, 0, Math.PI, false);
             ctx.stroke();
             ctx.closePath()
-            
+
 
         }
 
