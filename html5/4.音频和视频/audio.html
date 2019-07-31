@@ -1,12 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>audio</title>
+    <script>
+        window.onload = function () {
+            let audio = document.getElementById('contrlAudio');
+            console.log([audio])
+            audio.play();
+            document.getElementById('pauseBtn').onclick = function () {
+                console.log('this', [this])
+                if (audio.paused) {
+                    audio.play();
+                    this.innerText = '暂停'
+
+                } else {
+                    audio.pause();
+                    this.innerText = '播放'
+                }
+
+            }
+        }
+    </script>
 </head>
+
 <body>
-    <audio src="mp4/周杰伦-夜曲(标清).mp4" controls="controls" autoplay='autoplay' loop="loop"></audio>
+    <!--audio播放声音文件或者音频-->
+    <audio src="mp4/周杰伦-夜曲(标清).mp4" controls="controls" loop="loop">
+        Your browser does not support the audio element.</audio>
+    <audio controls="controls" preload="auto">
+        <source src="mp4/周杰伦-夜曲(标清).mp4" type="audio/mpeg" /> Your browser does not support the audio element.
+    </audio>
+    <!--video播放视频文件或视频流-->
+    <video src="mp4/周杰伦-夜曲(标清).mp4" controls muted poster="img/head.png" preload="auto" height="400px" width="500px">
+        <track kind="subtitles"  src="webVTT/test.vtt" default></track>
+    </video>
+    <!--js脚本控制媒体播放-->
+    <audio src="mp4/周杰伦-晴天(标清).mp4" controls id="contrlAudio"></audio>
+    <button id="pauseBtn">暂停</button>
 </body>
+
 </html>
