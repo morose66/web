@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>indexedDB</title>
+    <script>
+        /*针对浏览器统一定义indexedDB数据库 这边使用谷歌，不细分*/
+        window.indexedDB = window.indexedDB;
+        window.IDBTransacrion = window.IDBTransacrion;
+        window.IBDKeyRange = window.IBDKeyRange;
+        window.IDBCursor = window.IDBCursor;
+        function connectDB() {
+            let dbName = 'testIndexedDB';
+            let dbVersion = 222222;
+            let idb;
+            //连接数据库
+            let dbConnect = indexedDB.open(dbName, dbVersion);
+            dbConnect.onsuccess = function (e) {
+                //e.target.result为连接成功的数据库对象
+                idb = e.target.result;
+                alert('连接成功')
+                //create(idb)
+                // //使用事务
+                console.log('idb.objectStoreNames', idb.objectStoreNames)
+                let transaction = idb.transaction('Users', 'readwrite');//使用数据库对象开启事务
+                transaction.oncomplete = function (e) {//结束时执行
+                    alert('complete')
+                }
+                transaction.onabort = function (e) {//中止时执行
+                    alert('abort')
+                }
+                transaction.abort();
+            }
+            dbConnect.onerror = function () {
+                alert('连接失败')
+            }
+            //版本更新走这里
+            dbConnect.onupgradeneeded = function (e) {
+                alert(`旧版本为${e.oldVersion}，新版本为${e.newVersion}`)
+                console.log(e);
+                idb = e.target.result;
+                create(idb)
+            }
+        }
+        function create(idb) {
+            let name = 'Users';//仓库名
+            let optionalParamers = {
+                keyPath: 'userId',//主键
+                autoIncrement: true//是否自增长
+            };
+            //创建仓库
+            let store = idb.createObjectStore(name, optionalParamers);
+            console.log('store', store);
+            //创建索引
+            let indexName = 'UsersIndex';//索引名
+            let keyPath = 'userId';//用哪个属性来创建索引
+            let indexParamers = {
+                unique: false,
+                multiEntry: false
+            }
+            let index = store.createIndex(indexName, keyPath, indexParamers);
+            console.log('index', index);
+        }
+        function saveData() {
+            let dbName = 'testIndexedDB';
+            let dbVersion = 222222;
+            let idb;
+            //连接数据库
+            let dbConnect = indexedDB.open(dbName, dbVersion);
+            dbConnect.onsuccess = function (e) {//连接成功
+                idb = e.target.result;//数据库对象
+                let tx = idb.transaction(['Users'], 'readwrite')//开启事务--仓库名
+                let store = tx.objectStore('Users');//--仓库
+                console.log('Users', store);
+                let value = {
+                    userName: '李现',
+                    address: '湖北荆州'
+                };
+                let req = store.put(value);
+                req.onsuccess = function () {
+                    alert('数据保存成功')
+                }
+                req.onerror = function () {
+                    alert('数据保存失败')
+                }
+                dbConnect.onerror = function () {
+                    alert('数据库连接失败')
+                }
+
+            }
+        }
+        //查询数据
+        function searchData(){
+            let dbName = 'testIndexedDB';
+            let dbVersion = 222222;
+            let idb;
+            //连接数据库
+            let dbConnect = indexedDB.open(dbName, dbVersion);
+            dbConnect.onsuccess = function (e) {//连接成功
+                idb = e.target.result;//数据库对象
+                let tx = idb.transaction(['Users'], 'readwrite')//开启事务--仓库名
+                let store = tx.objectStore('Users');//--仓库
+                let req = store.get(1);
+                req.onsuccess = function () {
+                    console.log('查询结果',this)
+                    alert('获取数据成功,经测试你的老公名叫'+req.result.userName)
+                }
+                req.onerror = function () {
+                    alert('获取数据失败')
+                }
+                dbConnect.onerror = function () {
+                    alert('数据库连接失败')
+                }
+
+            }
+        }
+        //使用游标查询一组数据
+        function searchDataByCursor(){
+            let dbName = 'testIndexedDB';
+            let dbVersion = 222222;
+            let idb;
+            //连接数据库
+            let dbConnect = indexedDB.open(dbName, dbVersion);
+            dbConnect.onsuccess = function (e) {//连接成功
+                idb = e.target.result;//数据库对象
+                let tx = idb.transaction(['Users'], 'readonly')//开启事务--仓库名
+                let store = tx.objectStore('Users');//--仓库
+               // let req = store.get(1);
+               let range = IDBKeyRange.bound(1,3);
+               let direction = 'next'
+               let req=store.openCursor(range,direction);
+                req.onsuccess = function () {
+                    console.log('查询结果',this);
+                    let cursor = this.result;
+                    if(cursor){
+                        cursor.continue();//继续检索
+                    }
+
+                }
+                req.onerror = function () {
+                    alert('获取数据失败')
+                }
+                dbConnect.onerror = function () {
+                    alert('数据库连接失败')
+                }
+
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+    <button onclick="connectDB()">连接数据库 创建对象仓库 创建索引 使用事务</button>
+    <button onclick="saveData()">保存数据</button>
+    <button onclick="searchData()">查询数据</button>
+    <button onclick="searchDataByCursor()">使用游标查询数据</button>
+</body>
+
+</html>
