@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <title>导航页面</title>
+    <script>
+    $(function(){
+       $('ul a').on('click',function(e){
+           e.preventDefault()//阻止页面刷新操作
+           console.log('this--',$(this));
+           let hrefUrl = $(this).attr('href');
+           getContent(hrefUrl,true);
+       })
+       window.addEventListener('popstate',function(e){
+           alert('hhh')
+       })
+    })
+    function getContent(url,addEntry){
+        $.get(url).done(function(data){
+            console.log('data------',data)
+            $('#content').html(data);
+            if(addEntry){
+                history.pushState(null,null,url);//把目标地址推入浏览器历史记录堆栈中
+            }
+        })
+    }
+    </script>
+</head>
+<body>
+    <h1>李现 人间四月天</h1>
+    <ul>
+        <li><a href="news.html">新闻</a></li>
+        <li><a href="about.html">关于</a></li>
+    </ul>
+    <div id="content">
+
+    </div>
+</body>
+</html>

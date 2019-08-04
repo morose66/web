@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>视频直播</title>
+    <script>
+        window.onload = function () {
+            /**根据浏览器的不同选用兼容版本*/
+            navigator.getUserMedia = navigator.getUserMedia;
+            window.URL = window.URL || window.webkitURL;
+            console.log('window.URL',window.URL)
+            let video = document.getElementById('myVideo');
+            navigator.getUserMedia({ video: true, audio: false }, function (stream) {
+                console.log('stream', stream);
+               // console.log('window.URL',window.URL)
+                video.src = window.URL.createObjectURL(stream);
+            }, function (err) {
+                console.log(err)
+            });
+        }
+
+
+    </script>
+</head>
+
+<body>
+    <video id="myVideo" width="400" height="300" autoplay></video>
+</body>
+
+</html>

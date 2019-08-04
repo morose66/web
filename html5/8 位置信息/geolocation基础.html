@@ -8,6 +8,7 @@
     <title>获取位置信息</title>
     <script>
         navigator.geolocation.getCurrentPosition((position) => {
+            alert('获取位置信息')
             console.log('position', position)
         },(error)=>{
             console.log('error',error)
