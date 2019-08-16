@@ -33,17 +33,22 @@ function Observe(data) {
         observe(val);//递归继续向下找，实现深度数据劫持
         Object.defineProperty(data, key, {
             configurable: true,//可以删除属性，
+            //获取该data执行
             get() {
+                //初始化的时候触发
                 Dep.target && dep.addSub(Dep.target); // 将watcher添加到订阅事件中 [watcher]
+                console.log('get返回val',val);
                 return val;
             },
+            //修改该data触发
             set(newVal) {
                 if (val === newVal) {//设置值跟之前一样就不管
                     return;
                 }
                 val = newVal;//如果以后再获取值（get）的时候，将刚才设置的值再返回去
+                console.log('set设置val',val);
                 observe(newVal);//当设置为新值后，也需要把新值再去定义成属性
-                dep.notify(); // 让所有watcher的update方法执行即可
+                dep.notify(); // 让所有watcher的update方法执行即可--通知所有订阅者
             }
         })
     }
@@ -59,6 +64,7 @@ function observe(data) {
 //数据编译 把{{}}里面的内容解析出来
 //创建Compile构造函数
 function Compile(el, vm) {
+debugger
     // 将el挂载到实例上方便调用
     vm.$el = document.querySelector(el);
     //在el范围内将内容都拿到，当然不能一个一个的拿
@@ -109,10 +115,12 @@ function Dep() {
 Dep.prototype = {
     addSub(sub) {
         this.subs.push(sub);
+        console.log('this.subs',this.subs)
     },
     notify() {
         //绑定的方法,都有一个update方法
         this.subs.forEach(sub => {
+            console.log('sub',sub)
             sub.upDate();
         })
     }
@@ -120,6 +128,7 @@ Dep.prototype = {
 //监听函数
 //通过Watcher这个类创建的实例,都拥有update()方法
 function Watcher(vm, exp, fn) {
+    debugger;
     this.fn = fn//将fn绑到实例上
     this.vm = vm;
     this.exp = exp;
@@ -134,6 +143,7 @@ function Watcher(vm, exp, fn) {
     Dep.target = null
 }
 Watcher.prototype.upDate = function () {
+    debugger;
     // notify的时候值已经更改了
     // 再通过vm, exp来获取新的值
     let arr = this.exp.split('.');
