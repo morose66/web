@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>选择器</title>
+    <style>
+        a[href][title] {
+            color: palegoldenrod;
+            font-weight: bold
+        }
+
+        h1+p {
+            color: pink
+        }
+        a{
+            height: 20px;
+            width: 100px;
+            display: inline-block
+        }
+        a:link{
+            color: blue
+        }
+        a:visited{
+            color: palevioletred
+        }
+        a:hover{
+            color: palegreen
+        }
+        a:active {color: #e009FF}
+        input:focus{
+            background: peru
+        }
+    </style>
+</head>
+
+<body >
+    <a href="img/head.png" title="旺仔">嘿嘿</a>
+    <a href="img/head.png">嘿嘿</a>
+    <a href="#">伪类</a>
+    <a>伪类</a>
+    <p>0</p>
+    <h1>兄弟元素</h1>
+    <p>1</p>
+    <p>2</p>
+    <p>3</p>
+    <input  placeholder="请输入"/>
+
+</body>
+
+</html>
