@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+    <title>时钟</title>
+    <script type="text/babel">
+// 通过以下五步将 Clock 的函数组件转成 class 组件：
+
+// 创建一个同名的 ES6 class，并且继承于 React.Component。
+
+// 添加一个空的 render() 方法。
+
+// 将函数体移动到 render() 方法之中。
+
+// 在 render() 方法中使用 this.props 替换 props。
+
+// 删除剩余的空函数声明。
+
+/*****************************************************************************************************/
+
+// 我们通过以下三步将 date 从 props 移动到 state 中：
+
+// 把 render() 方法中的 this.props.date 替换成 this.state.date
+// 添加一个 class 构造函数，然后在该函数中为 this.state 赋初值：
+// 移除 <Clock /> 元素中的 date 属性：
+        
+    class Clock extends React.Component {
+        constructor(props) {
+            console.log(props)
+        super(props);
+        this.state = {date: new Date()};
+    }
+    //生命周期方法
+    //在新节点插入DOM结构之后触发
+    componentDidMount() {
+        this.timerID = setInterval(
+          () => this.tick(),
+            1000
+        );
+    }
+    tick(){
+        this.setState({
+      date: new Date()
+    });
+    }
+    //在组件从dom中移除时立刻触发
+    componentWillUnmount() {
+        clearInterval(this.timerID);
+    }
+    render() {
+        return (
+            <div>
+                <h1>Hello, 李先生</h1>
+                <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
+            </div>
+            );
+        }
+    }
+
+    // function tick() {
+    //     ReactDOM.render(
+    //         <Clock name="lixian"/>,
+    //         document.getElementById('app')
+    //     )
+    // }
+    // setInterval(tick,1000)
+    function App(){
+        return (<div><Clock name="lixian"/><Clock name="lixian"/></div>)
+    }
+    ReactDOM.render(
+            <App />,
+            document.getElementById('app')
+        )
+
+      
+    </script>
+</head>
+
+<body>
+    <div id="app"></div>
+
+</body>
+
+</html>
