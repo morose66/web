@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+    <title>条件渲染</title>
+    <script type="text/babel">
+    class UserGreeting extends React.Component{
+        constructor(props){
+            super(props);
+            this.state = props;
+        }
+
+        render(){
+            return (<div><h1>Welcome back!</h1></div>);
+        }
+    }
+    class GuestGreeting extends React.Component{
+        constructor(props){
+            super(props);
+            this.state = props;
+        }
+        render(){
+            return (<div><h1>Please sign up.</h1></div>);
+        }
+    }
+
+        class Greeting extends React.Component {
+            constructor(props) {
+                console.log(props)
+                super(props);
+                this.state = {isLoggedIn:false};
+            }
+            change(e){
+            // this.state.isLoggedIn = !this.state.isLoggedIn;
+            this.setState({
+                isLoggedIn:!this.state.isLoggedIn
+            })
+        }
+            render() {
+                if(!this.state.isLoggedIn){
+                    return <div><GuestGreeting  isLoggedIn={this.state.isLoggedIn}/><button onClick={(e)=>
+                    this.change(e)
+            }>change</button></div>
+                }else{
+                    return <div><UserGreeting isLoggedIn={this.state.isLoggedIn}/><button onClick={(e)=>
+                    this.change(e)
+            }>change</button></div>
+                }
+
+            }
+        }
+
+        ReactDOM.render(
+            // Try changing to isLoggedIn={true}:
+            <Greeting />,
+            document.getElementById('root')
+        );
+    </script>
+</head>
+
+<body>
+    <div id="root"></div>
+
+</body>
+
+</html>
